@@ -1,5 +1,5 @@
-from domian.ports import TaskRepositoryPort
-from domian.entity import Task
+from ..domian.ports import TaskRepositoryPort
+from ..domian.entity import Task
 
 class TaskService:
     
