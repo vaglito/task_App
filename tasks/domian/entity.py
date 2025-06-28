@@ -7,6 +7,6 @@ class Task:
     id: int
     title: str
     description: str
-    state: bool
+    state: bool = False
     updated_at: datetime
     created_at: datetime
