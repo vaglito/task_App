@@ -2,6 +2,8 @@ from ..domian.entity import Task
 from ..domian.ports import TaskRepositoryPort
 from .models import TaskModel
 
+# Use ORM DJANGO
+
 class DjangoTaskRepository(TaskRepositoryPort):
 
     def list_task(self):
