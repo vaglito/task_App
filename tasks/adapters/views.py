@@ -25,7 +25,7 @@ class TaskViewSet(ViewSet):
         task = service.get_task(int(pk))
         return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
     
-    def update(self, request, pk=None):
+    def partial_update(self, request, pk=None):
         serializer = TaskSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         task = service.update_task(int(pk), serializer.validated_data)
