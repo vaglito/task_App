@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from ..domian.entity import Task
 from ..domian.ports import TaskRepositoryPort
 from .models import TaskModel
@@ -7,7 +8,7 @@ from .models import TaskModel
 class DjangoTaskRepository(TaskRepositoryPort):
 
     def list_task(self):
-        return [Task(**task.__dict__) for task in TaskModel.objects.all()]
+        return [self._to_entity(t) for t in TaskModel.objects.all()]
     
     def create_task(self, task: Task):
         task_obj = TaskModel.objects.create(
@@ -15,10 +16,11 @@ class DjangoTaskRepository(TaskRepositoryPort):
             description=task.description,
             state=task.state
         )
-        return Task(**task_obj.__dict__)
+        return self._to_entity(task_obj)
     
     def getTaskById(self, task_id: int):
-        return self._to_entity(TaskModel.objects.get(id=task_id))
+        task = get_object_or_404(TaskModel, id=task_id)
+        return task
     
     def updateTask(self, task_id: int, task: Task):
         task_obj = TaskModel.objects.get(id=task_id)
