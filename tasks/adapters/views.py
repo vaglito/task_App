@@ -26,10 +26,22 @@ class TaskViewSet(ViewSet):
         return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
     
     def partial_update(self, request, pk=None):
-        serializer = TaskSerializer(data=request.data)
+        task = service.get_task(int(pk))
+        data = request.data
+
+        current_data = {
+            "title": task.title,
+            "state": task.state,
+            "description": task.description
+        }
+
+        current_data.update(data)
+
+        serializer = TaskSerializer(data=current_data)
         serializer.is_valid(raise_exception=True)
-        task = service.update_task(int(pk), serializer.validated_data)
-        return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
+
+        update_task = service.update_task(int(pk), serializer.validated_data)
+        return Response(TaskSerializer(update_task).data, status=status.HTTP_200_OK)
     
     def destroy(self, request, pk=None):
         service.delete_task(int(pk))
