@@ -8,7 +8,7 @@ class TaskRepositoryPort(ABC):
         pass
     
     @abstractmethod
-    def get_task(self, task_id: int) -> Task:
+    def getTaskById(self, task_id: int) -> Task:
         pass
     
     @abstractmethod
@@ -16,9 +16,9 @@ class TaskRepositoryPort(ABC):
         pass
     
     @abstractmethod
-    def update_task(self, task: Task) -> Task:
+    def updateTask(self, task: Task) -> Task:
         pass
     
     @abstractmethod
-    def delete_task(self, task_id: int) -> Task:
+    def deleteTask(self, task_id: int) -> Task:
         pass
