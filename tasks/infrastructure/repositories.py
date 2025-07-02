@@ -20,7 +20,7 @@ class DjangoTaskRepository(TaskRepositoryPort):
         return self._to_entity(task_obj)
     
     def getTaskById(self, task_id: int):
-        task = get_object_or_404(TaskModel, id=task_id)
+        task = get_object_or_404(TaskModel.objects.filter(is_active=True), id=task_id)
         return task
     
     def updateTask(self, task_id: int, task: Task):
@@ -29,10 +29,13 @@ class DjangoTaskRepository(TaskRepositoryPort):
         task_obj.description = task.description
         task_obj.state = task.state
         task_obj.save()
-        return self._to_entity(task_obj)
+        return task_obj
     
     def deleteTask(self, task_id: int):
-        return TaskModel.objects.get(id=task_id).delete()
+        task = TaskModel.objects.get(id=task_id)
+        task.is_active = False
+        task.save()
+        return task
     
     def _to_entity(self, model: TaskModel):
         return Task(
