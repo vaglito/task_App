@@ -8,7 +8,8 @@ from .models import TaskModel
 class DjangoTaskRepository(TaskRepositoryPort):
 
     def list_task(self):
-        return [self._to_entity(t) for t in TaskModel.objects.all()]
+        tasks = TaskModel.objects.all().order_by('-id')
+        return tasks
     
     def create_task(self, task: Task):
         task_obj = TaskModel.objects.create(
@@ -27,7 +28,7 @@ class DjangoTaskRepository(TaskRepositoryPort):
         task_obj.title = task.title
         task_obj.description = task.description
         task_obj.state = task.state
-        task.obj.save()
+        task_obj.save()
         return self._to_entity(task_obj)
     
     def deleteTask(self, task_id: int):
