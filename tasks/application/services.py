@@ -14,13 +14,13 @@ class TaskService:
         return self.repository.create_task(task)
     
     def get_task(self, task_id: int):
-        return self.repository.get_task(task_id)
+        return self.repository.getTaskById(task_id)
     
     def update_task(self, task_id: int, task: Task):
         task = Task(id=task_id, **task)
-        return self.repository.update_task(task_id, task)
+        return self.repository.updateTask(task_id, task)
     
     def delete_task(self, task_id: int):
-        return self.repository.delete_task(task_id)
+        return self.repository.deleteTask(task_id)
     
     
