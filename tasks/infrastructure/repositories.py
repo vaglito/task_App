@@ -14,10 +14,11 @@ class DjangoTaskRepository(TaskRepositoryPort):
     def create_task(self, task: Task):
         task_obj = TaskModel.objects.create(
             title=task.title,
+            user=task.user,
             description=task.description,
             state=task.state
         )
-        return self._to_entity(task_obj)
+        return task_obj
     
     def getTaskById(self, task_id: int):
         task = get_object_or_404(TaskModel.objects.filter(is_active=True), id=task_id)
