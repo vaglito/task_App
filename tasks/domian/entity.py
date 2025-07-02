@@ -6,7 +6,7 @@ from datetime import datetime
 class Task:
     id: int
     title: str
-    description: str
+    description: str = ""
     state: bool = False
     updated_at: datetime = field(default_factory=datetime.now)
     created_at: datetime = field(default_factory=datetime.now)
