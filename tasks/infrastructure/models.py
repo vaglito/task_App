@@ -2,6 +2,7 @@ from django.db import models
 
 class TaskModel(models.Model):
     title = models.CharField(max_length=255)
+    is_active = models.BooleanField(null=True, default=True)
     description = models.TextField(blank=True)
     state = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
